@@ -35,7 +35,7 @@ const items = [
 
 const App = () => {
   const [collapsed, setCollapsed] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
 
   const {

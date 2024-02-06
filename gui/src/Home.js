@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import {
   DesktopOutlined,
@@ -6,9 +6,10 @@ import {
   PieChartOutlined,
   TeamOutlined,
   UserOutlined,
+  LogoutOutlined
 } from '@ant-design/icons';
 
-import { Breadcrumb, Layout, Menu, theme } from 'antd';
+import { Breadcrumb, Layout, Menu, theme, Tooltip ,Avatar} from 'antd';
 const { Header, Content, Footer, Sider } = Layout;
 function getItem(label, key, icon, children) {
   return {
@@ -19,8 +20,8 @@ function getItem(label, key, icon, children) {
   };
 }
 const items = [
-  getItem('Option 1', '1', <PieChartOutlined />),
-  getItem('Option 2', '2', <DesktopOutlined />),
+  getItem('Dashboard', '1', <PieChartOutlined />),
+  getItem('Reports', '2', <DesktopOutlined />),
   getItem('User', 'sub1', <UserOutlined />, [
     getItem('Tom', '3'),
     getItem('Bill', '4'),
@@ -30,10 +31,15 @@ const items = [
   getItem('Files', '9', <FileOutlined />),
 ];
 
-const Home = () => {
+const Home = ({ onLogout }) => {
   const [collapsed, setCollapsed] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [lastLoggedInTime, setLastLoggedInTime] = useState(new Date());
 
+  const handleLogout = () => {
+    // Add any logout logic here
+    onLogout();
+  };
 
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -54,8 +60,18 @@ const Home = () => {
           style={{
             padding: 0,
             background: colorBgContainer,
-          }}
-        />
+            textAlign: 'right'
+    
+          }}>
+                <span style={{ fontSize: '14px', padding: '10px 10px' }}>Last Logged-in Time: {lastLoggedInTime.toLocaleString()}</span>
+                <Avatar style={{ backgroundColor: '#87d068' }} icon={<UserOutlined />} />
+                <span style={{ marginLeft: '10px' }}>User Name</span>
+                <Tooltip placement="bottom" title={"Log out"}>
+                    <LogoutOutlined style={{ fontSize: '20px', padding: '10px 10px' }} onClick={handleLogout} />
+                </Tooltip>
+          </Header>
+          
+     
         <Content
           style={{
             margin: '0 16px',
@@ -77,7 +93,7 @@ const Home = () => {
               borderRadius: borderRadiusLG,
             }}
           >
-            Bill is a cat.
+            <h1>Welcome to the Home Page!</h1>
           </div>
         </Content>
         <Footer
