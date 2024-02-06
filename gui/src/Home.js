@@ -1,12 +1,20 @@
 import React, { useState } from 'react';
 import './App.css';
+// import { Link, Route, Switch } from 'react-router-dom';
+import { Link, Routes, Route } from 'react-router-dom';
+// import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import StatsDashboardPage from './StatsDashboardPage';
+import DashboardPage from './DashboardPage';
+
 import {
   DesktopOutlined,
   FileOutlined,
   PieChartOutlined,
   TeamOutlined,
   UserOutlined,
-  LogoutOutlined
+  LogoutOutlined,
+  HomeOutlined,
+  DashboardOutlined
 } from '@ant-design/icons';
 
 import { Breadcrumb, Layout, Menu, theme, Tooltip ,Avatar} from 'antd';
@@ -19,17 +27,7 @@ function getItem(label, key, icon, children) {
     label,
   };
 }
-const items = [
-  getItem('Dashboard', '1', <PieChartOutlined />),
-  getItem('Reports', '2', <DesktopOutlined />),
-  getItem('User', 'sub1', <UserOutlined />, [
-    getItem('Tom', '3'),
-    getItem('Bill', '4'),
-    getItem('Alex', '5'),
-  ]),
-  getItem('Team', 'sub2', <TeamOutlined />, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
-  getItem('Files', '9', <FileOutlined />),
-];
+
 
 const Home = ({ onLogout }) => {
   const [collapsed, setCollapsed] = useState(false);
@@ -53,7 +51,18 @@ const Home = ({ onLogout }) => {
     >
       <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
         <div className="demo-logo-vertical" />
-        <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} />
+        
+        <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
+          <Menu.Item key="1" theme="dark" defaultSelectedKeys={['1']} mode="inline" icon={<DashboardOutlined />}>
+            <Link to="/reports">Reports</Link>
+          </Menu.Item>
+          <Menu.Item theme="dark" defaultSelectedKeys={['1']} mode="inline" key="2" icon={<FileOutlined />}>
+            <Link to="/dashboard">Dashboard</Link>
+          </Menu.Item>
+          <Menu.Item theme="dark" defaultSelectedKeys={['1']} mode="inline" key="3" icon={<HomeOutlined />}>
+            <Link to="/home">Home</Link>
+          </Menu.Item>
+        </Menu>
       </Sider>
       <Layout>
         <Header
@@ -65,7 +74,7 @@ const Home = ({ onLogout }) => {
           }}>
                 <span style={{ fontSize: '14px', padding: '10px 10px' }}>Last Logged-in Time: {lastLoggedInTime.toLocaleString()}</span>
                 <Avatar style={{ backgroundColor: '#87d068' }} icon={<UserOutlined />} />
-                <span style={{ marginLeft: '10px' }}>User Name</span>
+                <span style={{ marginLeft: '10px' }}>Demo</span>
                 <Tooltip placement="bottom" title={"Log out"}>
                     <LogoutOutlined style={{ fontSize: '20px', padding: '10px 10px' }} onClick={handleLogout} />
                 </Tooltip>
@@ -82,8 +91,8 @@ const Home = ({ onLogout }) => {
               margin: '16px 0',
             }}
           >
-            <Breadcrumb.Item>User</Breadcrumb.Item>
-            <Breadcrumb.Item>Bill</Breadcrumb.Item>
+            <Breadcrumb.Item>Home</Breadcrumb.Item>
+            <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
           </Breadcrumb>
           <div
             style={{
@@ -93,7 +102,14 @@ const Home = ({ onLogout }) => {
               borderRadius: borderRadiusLG,
             }}
           >
-            <h1>Welcome to the Home Page!</h1>
+            {/* <h1>Welcome to the Home Page!</h1> */}
+            <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
+          <Routes>
+              <Route path="/dashboard" element={<DashboardPage />} />
+              <Route path="/reports" element={<StatsDashboardPage />} />
+              <Route path="/home" element={<StatsDashboardPage />} />
+            </Routes>
+          </div>
           </div>
         </Content>
         <Footer

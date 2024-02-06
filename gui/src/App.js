@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 import './App.css';
 import {
   DesktopOutlined,
@@ -50,7 +51,9 @@ const App = () => {
     <div>
       {isLoggedIn ? (
         // Render Home Component when logged in
-        <Home onLogout={() => handleLoginStatusChange(false)} />
+        <Router>
+          <Home onLogout={() => handleLoginStatusChange(false)} />
+        </Router>
       ) : (
         // Render Login Component when not logged in
         <Login onLogin={() => handleLoginStatusChange(true)} />
