@@ -1,14 +1,128 @@
 import React, { useState } from 'react';
-import { Steps, Form, Input, Button, Upload, message } from 'antd';
+import { Steps, Form, Input, Button, Upload, message, Dropdown, Table, Tag, Space } from 'antd';
 import { UploadOutlined, DownloadOutlined } from '@ant-design/icons';
 
 const { Step } = Steps;
 const { TextArea } = Input;
 
+
+const items = [
+    {
+      key: '1',
+      label: "SMSC"
+    },
+    {
+      key: '2',
+      label:"Firewall"
+    },
+    {
+      key: '3',
+      label: 
+          "UNO"
+    },
+    {
+        key: '4',
+        label: "Ngage"
+        
+    },
+    {
+        key: '5',
+        label: (
+                "SMSHUB"
+        ),
+    },
+    {
+        key: '6',
+        label: (
+                "LEAP"
+        ),
+    },
+  ];
+
+const projStatus = [
+    {
+      key: '1',
+      label: "Pending"
+    },
+    {
+      key: '2',
+      label:"On Hold"
+    },
+    {
+      key: '3',
+      label: 
+          "Completed"
+    },
+    {
+        key: '4',
+        label: "Rejected"
+        
+    }
+  ];
+
+  const columns = [
+    {
+      title: 'Sl. no',
+      dataIndex: 'id',
+      key: 'id',
+      render: (text) => <a>{text}</a>,
+    },
+    {
+      title: 'Effort Type',
+      dataIndex: 'type',
+      key: 'type',
+    },
+    {
+      title: 'Effort in MM',
+      dataIndex: 'mm',
+      key: 'mm',
+    }
+  ];
+  const data = [
+    {
+      key: '1',
+      id: '1',
+      type: 'Application Implementation',
+      mm: '1'
+    },
+    {
+        key: '2',
+        id: '2',
+        type: 'Integration Testing',
+        mm: '0.5'
+    },
+    {
+        key: '3',
+        id: '3',
+        type: 'Documentation',
+        mm: '0.3'
+    },
+    {
+        key: '4',
+        id: '4',
+        type: 'PVG',
+        mm: '1'
+    },
+    {
+        key: '5',
+        id: '5',
+        type: 'Infra Implementation',
+        mm: '0.5'
+    },
+  ];
 const DashboardPage = () => {
     const [currentStep, setCurrentStep] = useState(0);
   
     const handleNext = () => {
+      if(currentStep == 0){
+        fetch("http://172.25.39.227:8001/send_email")
+        .then(()=>{
+            message.success("Email with attachments has been sent");
+        })
+        .catch((e) => {
+            message.error("Error while sending email");
+        })
+      }
       setCurrentStep(currentStep + 1);
     };
   
@@ -29,14 +143,20 @@ const DashboardPage = () => {
   
     const steps = [
       {
-        title: 'Step 1',
+        title: 'Create Ticket',
         content: (
           <Form
           labelCol={{ span: 4 }}
           wrapperCol={{ span: 10 }}>
             <br />
             <Form.Item label="Product">
-              <Input />
+            <Dropdown menu={{ items,}} 
+            
+            placement="bottom"
+            >
+                <Button size={"large"}>SMSC</Button>
+            </Dropdown>
+
             </Form.Item>
             <Form.Item label="Client">
               <Input />
@@ -66,23 +186,76 @@ const DashboardPage = () => {
       },
       // Add more steps here if needed
       {
-        title: 'Step 2',
+        title: 'Sending Email',
         content: (
-          <Form>
-            <Form.Item label="Product">
-              <Input />
-            </Form.Item>
-            <Form.Item label="Client">
-              <Input />
-            </Form.Item>
-            <Form.Item label="TPS">
-              <Input />
-            </Form.Item>
-            <Form.Item label="Site">
-              <Input />
-            </Form.Item>
+            <div style={{ padding: "30 30" }}>
+                <br /> 
+                <br />
+                <h3>Sending Email with SOW and BOQ </h3>
+                <br />
+            </div>
 
-          </Form>
+        ),
+      },
+      {
+        title: 'Review',
+        content: (
+            <div style={{ padding: "30 30" }} >
+                 <br />
+                <Form>
+                    <Form.Item label="Upload reviewed File">
+                    <Upload onChange={(info) => handleUpload(info.file)}>
+                        <Button icon={<UploadOutlined />}>Upload</Button>
+                    </Upload>
+                    </Form.Item>
+            </Form>
+            </div>
+
+        ),
+      },
+      {
+        title: 'Checklist',
+        content: (
+            <div style={{ padding: "30 30" }}>
+                <br />
+                <br />
+                <h3>Creating checklist and Sending EMail with checklist </h3>
+                <br />
+            </div>
+
+        ),
+      },
+      {
+        title: 'Effort Sharing',
+        content: (
+            <div>
+                <h3>Update the Efforts </h3>
+
+                <Table columns={columns} dataSource={data} />
+            </div>
+
+        ),
+      },
+      {
+        title: 'PO Status',
+        content: (
+            <div>
+                <Form
+          labelCol={{ span: 4 }}
+          wrapperCol={{ span: 10 }}>
+            <br />
+                <Form.Item label="Project Status">
+                <Dropdown 
+                menu={{ projStatus}} 
+                placement="bottom"
+                >
+                    <Button size={"large"}>Pending</Button>
+                </Dropdown>
+
+                </Form.Item>
+            </Form>
+            </div>
+
         ),
       },
     ];

@@ -19,6 +19,7 @@ import {
 
 import { Breadcrumb, Layout, Menu, theme, Tooltip ,Avatar} from 'antd';
 const { Header, Content, Footer, Sider } = Layout;
+const { SubMenu } = Menu;
 function getItem(label, key, icon, children) {
   return {
     key,
@@ -54,13 +55,30 @@ const Home = ({ onLogout }) => {
         
         <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
           <Menu.Item key="1" theme="dark" defaultSelectedKeys={['1']} mode="inline" icon={<DashboardOutlined />}>
+            <Link to="/reports">Dashboard</Link>
+          </Menu.Item>
+          {/* <Menu.Item theme="dark" defaultSelectedKeys={['1']} mode="inline" key="2" icon={<HomeOutlined />}>
+            <Link to="/dashboard">Process</Link>
+          </Menu.Item> */}
+          <SubMenu key="2" icon={<HomeOutlined />} title="Process">
+          <Menu.Item key="2-1">
+            <Link to="/reports">RFP</Link>
+          </Menu.Item>
+          <Menu.Item key="2-2">
+            <Link to="/dashboard">Technical Proposal</Link>
+          </Menu.Item>
+          <Menu.Item key="2-3">
+            <Link to="/dashboard">Change Request</Link>
+          </Menu.Item>
+        </SubMenu>
+          <Menu.Item theme="dark" defaultSelectedKeys={['1']} mode="inline" key="3" icon={<PieChartOutlined />}>
             <Link to="/reports">Reports</Link>
           </Menu.Item>
-          <Menu.Item theme="dark" defaultSelectedKeys={['1']} mode="inline" key="2" icon={<FileOutlined />}>
-            <Link to="/dashboard">Dashboard</Link>
+          <Menu.Item theme="dark" defaultSelectedKeys={['1']} mode="inline" key="4" icon={<TeamOutlined />}>
+            <Link to="/home">Projects</Link>
           </Menu.Item>
-          <Menu.Item theme="dark" defaultSelectedKeys={['1']} mode="inline" key="3" icon={<HomeOutlined />}>
-            <Link to="/home">Home</Link>
+          <Menu.Item theme="dark" defaultSelectedKeys={['1']} mode="inline" key="5" icon={<DesktopOutlined />}>
+            <Link to="/home">SLA</Link>
           </Menu.Item>
         </Menu>
       </Sider>
@@ -92,7 +110,7 @@ const Home = ({ onLogout }) => {
             }}
           >
             <Breadcrumb.Item>Home</Breadcrumb.Item>
-            <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
+            <Breadcrumb.Item>Process</Breadcrumb.Item>
           </Breadcrumb>
           <div
             style={{
