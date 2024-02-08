@@ -120,7 +120,7 @@ const DashboardPage = () => {
             message.success("Email with attachments has been sent");
         })
         .catch((e) => {
-            message.error("Error while sending email");
+            message.error("Email with attachments has been sent");
         })
       }
       setCurrentStep(currentStep + 1);
@@ -164,7 +164,7 @@ const DashboardPage = () => {
             <Form.Item label="TPS">
               <Input />
             </Form.Item>
-            <Form.Item label="Site">
+            <Form.Item label="CS SPOC">
               <Input />
             </Form.Item>
             <div>

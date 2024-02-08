@@ -8,12 +8,12 @@ const StatsDashboardPage = () => {
   
     return (
       <div style={{ padding: '24px' }}>
-         <h1>Welcome to the Reports Page!</h1>
+         <h1></h1>
         <Row gutter={16}>
           <Col span={12}>
             <Card>
               <Statistic
-                title="Completed Tasks"
+                title="Completed CR"
                 value={completedTasks}
                 valueStyle={{ color: '#3f8600' }}
               />
@@ -22,8 +22,30 @@ const StatsDashboardPage = () => {
           <Col span={12}>
             <Card>
               <Statistic
-                title="Pending Tasks"
+                title="Pending CR"
                 value={pendingTasks}
+                valueStyle={{ color: '#cf1322' }}
+              />
+            </Card>
+          </Col>
+        </Row>
+        <br />
+        <br />
+        <Row gutter={16}>
+          <Col span={12}>
+            <Card>
+              <Statistic
+                title="Completed RFP"
+                value={14}
+                valueStyle={{ color: '#3f8600' }}
+              />
+            </Card>
+          </Col>
+          <Col span={12}>
+            <Card>
+              <Statistic
+                title="Pending RFP"
+                value={12}
                 valueStyle={{ color: '#cf1322' }}
               />
             </Card>
