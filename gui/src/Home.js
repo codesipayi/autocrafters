@@ -4,6 +4,7 @@ import './App.css';
 import { Link, Routes, Route } from 'react-router-dom';
 // import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import StatsDashboardPage from './StatsDashboardPage';
+import WIP_Page from './WIP_Page';
 import DashboardPage from './DashboardPage';
 
 import {
@@ -52,7 +53,17 @@ const Home = ({ onLogout }) => {
     >
       <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
         <div className="demo-logo-vertical" />
+
         
+
+        <div className="logo-container">
+                            <img
+                                src="/comviva_logo.png"
+                                alt="Comviva Logo"
+                                style={{ maxWidth: '100%', height: 'auto' }}
+                            />
+                        </div>
+
         <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
           <Menu.Item key="1" theme="dark" defaultSelectedKeys={['1']} mode="inline" icon={<DashboardOutlined />}>
             <Link to="/reports">Dashboard</Link>
@@ -75,10 +86,10 @@ const Home = ({ onLogout }) => {
             <Link to="/reports">Reports</Link>
           </Menu.Item>
           <Menu.Item theme="dark" defaultSelectedKeys={['1']} mode="inline" key="4" icon={<TeamOutlined />}>
-            <Link to="/home">Projects</Link>
+            <Link to="/wip">Projects</Link>
           </Menu.Item>
           <Menu.Item theme="dark" defaultSelectedKeys={['1']} mode="inline" key="5" icon={<DesktopOutlined />}>
-            <Link to="/home">SLA</Link>
+            <Link to="/wip">SLA</Link>
           </Menu.Item>
         </Menu>
       </Sider>
@@ -126,6 +137,7 @@ const Home = ({ onLogout }) => {
               <Route path="/dashboard" element={<DashboardPage />} />
               <Route path="/reports" element={<StatsDashboardPage />} />
               <Route path="/home" element={<StatsDashboardPage />} />
+              <Route path="/wip" element={<WIP_Page />} />
             </Routes>
           </div>
           </div>

@@ -40,6 +40,14 @@ const {
                 <Content className="login-content">
                     <div className="login-form-container">
 
+                    <div className="logo-container">
+                            <img
+                                src="/comviva_logo.png"
+                                alt="Comviva Logo"
+                                style={{ maxWidth: '100%', height: 'auto' }}
+                            />
+                        </div>
+
                         <h2>Login</h2>
                         <Form
                             name="login-form"
